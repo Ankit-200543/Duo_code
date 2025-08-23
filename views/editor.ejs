@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DuoCode Editor</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: #1e1e2f;
+      color: white;
+    }
+
+    header {
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      color: white;
+      padding: 12px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .editor {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .leftpart {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      background: #252539;
+      padding: 10px;
+      box-sizing: border-box;
+      border-right: 2px solid #444;
+    }
+
+    .content {
+      flex: 1;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+
+    .content label {
+      background: #33384d;
+      color: #00f2fe;
+      padding: 6px 10px;
+      font-size: 14px;
+      font-weight: bold;
+      border-bottom: 1px solid #444;
+    }
+
+    .content textarea {
+      flex: 1;
+      font-family: monospace;
+      font-size: 14px;
+      padding: 10px;
+      border: none;
+      outline: none;
+      resize: none;
+      background: #1e1e2f;
+      color: #dcdcdc;
+      transition: background 0.3s ease;
+    }
+
+    .content textarea:focus {
+      background: #2a2a42;
+    }
+
+    .rightPart {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      background: #202030;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .rightPart label {
+      background: #33384d;
+      color: #4facfe;
+      padding: 6px 10px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .rightPart iframe {
+      flex: 1;
+      border: none;
+      background: white;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    🚀 DuoCode Editor (Room: <%= roomId %>)
+  </header>
+
+  <div class="editor">
+    <div class="leftpart">
+      <div class="content">
+        <label>HTML</label>
+        <textarea id="htmlCode"><h3>Hello World!</h3></textarea>
+      </div>
+      <div class="content">
+        <label>CSS</label>
+        <textarea id="cssCode">h3 { color: red; }</textarea>
+      </div>
+      <div class="content">
+        <label>JavaScript</label>
+        <textarea id="jsCode">console.log("Hello from JS!");</textarea>
+      </div>
+    </div>
+
+    <div class="rightPart">
+      <label>OUTPUT</label>
+      <iframe id="output"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const socket = io();
+    const roomId = "<%= roomId %>";
+
+    const htmlCode = document.getElementById("htmlCode");
+    const cssCode = document.getElementById("cssCode");
+    const jsCode = document.getElementById("jsCode");
+    const output = document.getElementById("output");
+
+    // join the room
+    socket.emit("joinRoom", roomId);
+
+    function updateOutput() {
+      const html = htmlCode.value;
+      const css = `<style>${cssCode.value}</style>`;
+      const js = `<script>${jsCode.value}<\/script>`;
+      output.srcdoc = html + css + js;
+    }
+
+    // send changes to server
+    [htmlCode, cssCode, jsCode].forEach(el => {
+      el.addEventListener("input", () => {
+        updateOutput();
+        socket.emit("codeChange", {
+          room: roomId,   // ✅ match backend key
+          html: htmlCode.value,
+          css: cssCode.value,
+          js: jsCode.value
+        });
+      });
+    });
+
+    // receive updates from server
+    socket.on("updateCode", (data) => {
+      if (data.room === roomId) {   // ✅ use 'room' not 'roomId'
+        htmlCode.value = data.html;
+        cssCode.value = data.css;
+        jsCode.value = data.js;
+        updateOutput();
+      }
+    });
+
+    updateOutput();
+  </script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css"> <!-- use your own CSS file -->
+</head>
+<body>
+    <style>
+        /* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: #0f172a; /* Dark blue background */
+  color: #f8fafc; /* Light text */
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+  color: white;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+}
+
+header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Sections */
+main {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #1e293b;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+}
+
+section h2 {
+  color: #38bdf8; /* Light cyan */
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+section p, section li {
+  font-size: 1rem;
+  color: #e2e8f0;
+}
+
+/* Lists */
+ul {
+  list-style: none;
+  margin-top: 0.5rem;
+}
+
+ul li {
+  background: #334155;
+  margin: 0.4rem 0;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+ul li:hover {
+  transform: translateX(6px);
+  background: #475569;
+}
+
+/* Actions Section */
+.actions form {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.actions input {
+  flex: 1;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.actions button {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: #3b82f6;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.actions button:hover {
+  background: #2563eb;
+}
+
+/* Secondary button */
+.actions p button {
+  background: #22c55e;
+}
+
+.actions p button:hover {
+  background: #16a34a;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .actions form {
+    flex-direction: column;
+  }
+
+  .actions input, .actions button {
+    width: 100%;
+  }
+}
+
+    </style>
+  <header>
+    <h1>🚀 DuoCode</h1>
+    <p>A Real-Time Collaborative Code Editor</p>
+  </header>
+
+  <main>
+    <!-- Project Description -->
+    <section class="intro">
+      <h2>About This Project</h2>
+      <p>
+        DuoCode is a real-time collaborative code editor where multiple users can 
+        write and edit <strong>HTML, CSS, and JavaScript</strong> together inside a shared room.  
+        Every change is instantly synced so all participants can see updates live.
+      </p>
+    </section>
+
+    <!-- Functionalities -->
+    <section class="functionalities">
+      <h2>✨ Key Functionalities</h2>
+      <ul>
+        <li>Create or Join a unique room with a code.</li>
+        <li>Collaboratively edit HTML, CSS, and JS in real-time.</li>
+        <li>Live preview of your project as you code.</li>
+        <li>Automatic syncing between all participants.</li>
+        <li>Room is deleted automatically when all users leave.</li>
+      </ul>
+    </section>
+
+    <!-- Problem it Solves -->
+    <section class="problems">
+      <h2>💡 What Problem Does This Solve?</h2>
+      <p>
+        Many developers and students face challenges when they want to <strong>work together 
+        on code remotely</strong>. Traditional editors are either offline or lack real-time collaboration.  
+        DuoCode solves this by:
+      </p>
+      <ul>
+        <li>Helping students practice coding together instantly.</li>
+        <li>Allowing teams to quickly test ideas without setup.</li>
+        <li>Reducing dependency on heavy IDEs for simple collaboration.</li>
+        <li>Making live teaching and mentorship sessions easier.</li>
+      </ul>
+    </section>
+
+    <!-- Action Buttons -->
+
+
+</body>
+</html>

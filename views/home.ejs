@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DuoCode - Create/Join Room</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0f111a;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      width: 100%;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .navbar h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+    .navbar a:hover {
+      opacity: 0.8;
+    }
+
+    /* Main container */
+    .form-container {
+      margin-top: 80px;
+      background-color: #1a1d2b;
+      padding: 30px;
+      border-radius: 16px;
+      width: 350px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+    .form-container h2 {
+      margin-top: 0;
+      color: #00c6ff;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    button {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.2s ease, opacity 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>🚀 DuoCode</h1>
+    <a href="/about">About</a>
+  </div>
+
+  <!-- Form Container -->
+  <div class="form-container">
+    <h2>Create a Room</h2>
+    <form id="createForm">
+      <button type="submit">Create Room</button>
+    </form>
+
+    <h2>Join a Room</h2>
+    <form id="joinForm">
+      <input type="text" id="roomCode" placeholder="Enter Room Code" required>
+      <button type="submit">Join Room</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("createForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const roomCode = Math.random().toString(36).substring(2, 8); // random code
+      window.location.href = `/editor/${roomCode}`;
+    });
+
+    document.getElementById("joinForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const roomCode = document.getElementById("roomCode").value.trim();
+      if(roomCode) {
+        window.location.href = `/editor/${roomCode}`;
+      }
+    });
+  </script>
+</body>
+</html>
